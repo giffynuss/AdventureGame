@@ -11,15 +11,17 @@ namespace AdventureGame
 
         public string Name { get; set; }
         public int Health { get; set; }
+        public int MaxHealth { get; set; } = 100; // Default max health
         public int Strength { get; set; }
         public int Defense { get; set; }
         public int Ressistance { get; set; }
         public int Intelligence { get; set; }
 
-        public Character(string name, int health, int strength, int defense, int ressistance, int intelligence)
+        public Character(string name, int maxHealth, int strength, int defense, int ressistance, int intelligence)
         {
             this.Name = name;
-            this.Health = health;
+            this.Health = maxHealth;
+            this.MaxHealth = maxHealth;
             this.Strength = strength;
             this.Defense = defense;
             this.Ressistance = ressistance;
