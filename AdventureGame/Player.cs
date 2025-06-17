@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdventureGame
 {
-    internal class Player : Character
+    public class Player : Character
     {
         // Counter für die Anzahl der Potions im Inventar
         public int PotionCount { get; set; } = 0;

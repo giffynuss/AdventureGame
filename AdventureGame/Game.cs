@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace AdventureGame
         public List<Room> Roomlist { get; set; } = new List<Room>();
         public List<Character> Characterlist { get; set; } = new List<Character>();
 
-        public void IntroduceGame() {
+        public void InitializeGame() {
             Console.WriteLine("Welcome to the Dungeon Adventure!");
             Console.WriteLine("Whohohoohoohohohoh  [¬º-°]¬ [¬º-°]¬ [¬º-°]¬ [¬º-°]¬");
             //Console.WriteLine("""
@@ -43,19 +44,89 @@ namespace AdventureGame
                 {
                     Console.Write(".... ");
                 }
-                Console.Read();
-                InitializeGame();
+                CreateGame();
             }
         }
 
-        public void InitializeGame()
+        public void CreateGame()
         {
-            
+            Game.GameInstance.Characterlist.Add(new Player("Player1"));
+            Game.GameInstance.Roomlist.Add(new Room(new Item(),new Monster("Michel1")));
+            Game.GameInstance.Roomlist.Add(new Room(new Item(), new Monster("Michel2")));
+            Game.GameInstance.Roomlist.Add(new Room(new Item(), new Monster("Lisa Lappe")));
+            DungeonDive();
+        }
+
+
+        public void DungeonDive()
+        {
+            Console.WriteLine("You entered the dungeon!");
+            while (true)
+            {
+                foreach (Room room in Roomlist)
+                {
+                    Console.WriteLine($"You are in the {room.Name} ..... {room.Description}\n"); 
+                    Console.WriteLine($"You cann see an Item: {room.Item.Name} and a Monster: {room.Monster.Name}");
+                    Console.WriteLine("What do you want to do? (fight, use item, run, exit)");
+                    Console.WriteLine(room.Monster.ToString());
+                    DungeonFight(Game.GameInstance.Characterlist[0] as Player, room.Monster);
+                    CloseGame();
+                }
+                Console.WriteLine("You have cleared the dungeon! Congratulations, you have earned your Gulasch!🍜");
+            }
+
+        }
+
+        public void DungeonFight(Player player, Monster monster)
+        {
+            while (true)
+            {
+                player.attackMagic(monster);
+                Console.WriteLine($"You hurt the monster badly ... current HP:{monster.Health}");
+                if (monster.Health <= 0)
+                {
+                    Console.WriteLine("The monster lost it's head");
+                    return;
+                }
+                else
+                {
+                    monster.attackPhysical(player);
+                    Console.WriteLine($"The player got attacked by the monster and is bleeding... current HP: {player.Health}");
+                }
+
+                if (player.Health <= 0)
+                {
+                    Console.WriteLine("The player lost his head and died. Game over!");
+                    Dead();
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("The player is still alive and can continue fighting.");
+                }
+            }
         }
 
         public void CloseGame()
         {
-            Environment.Exit(0);
+            ConsoleKey input = ConsoleKey.Enter;
+            if (input == ConsoleKey.Enter)
+            {
+                Console.Clear();
+                InitializeGame();
+            }
+            else
+            {
+                Console.WriteLine("Thanks for playing! Goodbye!");
+                Environment.Exit(0);
+            }
+        }
+
+        public void Dead()
+        {
+            Console.WriteLine("Try again?\n");
+            Console.WriteLine("Press Enter to restart the game or any other key to exit.");
+            CloseGame();
         }
     }  
 }

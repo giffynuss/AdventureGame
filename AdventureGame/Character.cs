@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdventureGame
 {
-    internal abstract class Character
+    public abstract class Character
     {
 
         public string Name { get; set; }
