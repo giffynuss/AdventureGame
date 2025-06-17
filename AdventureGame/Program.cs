@@ -1,1 +1,7 @@
-﻿Console.WriteLine("Welcome to the Adventure Game!");
+﻿using AdventureGame;
+
+class Program {
+    public static void Main(string[] args) {
+        Game.GameInstance.IntroduceGame();
+    }
+}
