@@ -58,9 +58,11 @@ namespace AdventureGame
         public void CreateGame()
         {
             Game.GameInstance.Characterlist.Add(new Player("Player1"));
-            Game.GameInstance.Roomlist.Add(new Room(new Item(),new Monster("Michel1")));
-            Game.GameInstance.Roomlist.Add(new Room(new Item(), new Monster("Michel2")));
-            Game.GameInstance.Roomlist.Add(new Room(new Item(), new Monster("Lisa Lappe")));
+            Game.GameInstance.Roomlist.Add(new Room(null,new Monster("Michel"), "Uhlandstraße", "Schlechtes Internet überall . . ."));
+            Game.GameInstance.Roomlist.Add(new Room(null, new Monster("Spinne"), "Website", "Website-Netcrawler!!!"));
+            Game.GameInstance.Roomlist.Add(new Room(new Item(), new Monster("Mika"), "Schlangenraum", "psssssttttttssssssssss . . ."));
+            Game.GameInstance.Roomlist.Add(new Room(null, new Monster("Unknown"), "Blackbox", "It's all white!"));
+            Game.GameInstance.Roomlist.Add(new Room(new Item("Gulasch", "Food", 9999, "become god", 999999999), new Monster("Lisa Lappe"), "BOSS ROOM", "SEPE Technologiepark PADERBORRRNNN!!!"));
             DungeonDive();
         }
 
@@ -88,7 +90,7 @@ namespace AdventureGame
                     bool inputvalid = false;
                     while (!inputvalid)
                     {
-                        Console.WriteLine("\nWhat do you want to do? \n[0] fight\n[1] use item\n[2] run ");
+                        Console.WriteLine("\nWhat do you want to do? \n[0] fight\n[1] use item\n[2] run (lose 20 HP) ");
                         String input2 = Console.ReadLine();
                         Player player = Game.GameInstance.Characterlist[0] as Player;
                         if (input2 == "0")
@@ -125,6 +127,10 @@ namespace AdventureGame
                             Thread.Sleep(1000);
                             Thread.Sleep(1000);
                         }
+                    }
+                    Thread.Sleep(1000);
+                    if (room.Item != null) {
+                        Console.WriteLine($"You looted the room and got a {room.Item.Name} ({room.Item.type})");
                     }
                     Thread.Sleep(1000);
                     Thread.Sleep(1000);

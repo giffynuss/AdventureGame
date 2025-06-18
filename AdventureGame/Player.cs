@@ -14,7 +14,7 @@ namespace AdventureGame
         // Potionliste als Inventar
         List<Item> items = new List<Item>();
 
-        public Player(string name, int maxHealth=40, int strength=5, int defense=2, int ressistance=1, int intelligence=4) 
+        public Player(string name, int maxHealth=40, int strength=5, int defense=2, int ressistance=1, int intelligence=8) 
             : base(name, maxHealth, strength, defense, ressistance, intelligence)
         {
             this.Name = name;
