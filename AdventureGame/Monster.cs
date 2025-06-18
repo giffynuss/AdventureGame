@@ -12,7 +12,7 @@ namespace AdventureGame
         public string Type { get; set; }
         public string Title { get; set; }
 
-        public Monster(string name, int maxHealth=20, int strength = 2, int defense = 1, int ressistance = 0, 
+        public Monster(string name, int maxHealth=20, int strength = 4, int defense = 1, int ressistance = 2, 
             int intelligence = 2, string type = "Monster", string title = "Vanguard")
             : base(name, maxHealth, strength, defense, ressistance, intelligence)
         {
@@ -29,7 +29,7 @@ namespace AdventureGame
 
         public override string ToString()
         {
-            return $"\n{Title} - {Name} ( {Type} )\nHealth: {Health}\nStrength: {Strength}\nDefense: {Defense}\n" +
+            return $"\n{Title} - {Name} ( {Type} ) [¬º-°]¬\nHealth: {Health}\nStrength: {Strength}\nDefense: {Defense}\n" +
                    $"Ressistance: {Ressistance}\nIntelligence: {Intelligence}\n";
         }
 
