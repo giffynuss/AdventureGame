@@ -5,6 +5,8 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
+using System.Threading;
+
 
 namespace AdventureGame
 {
@@ -34,7 +36,7 @@ namespace AdventureGame
             ConsoleKeyInfo input = Console.ReadKey();
             while (input.Key != ConsoleKey.Enter)
             {
-                Console.WriteLine("\n\nPress Enter to start the game u idiot....");
+                Console.WriteLine("\n\nPress enter to start the game u idiot....");
                 input = Console.ReadKey();
             }
             if (input.Key == ConsoleKey.Enter)
@@ -43,6 +45,7 @@ namespace AdventureGame
                 for (int i = 0; i < 10; i++)
                 {
                     Console.Write(".... ");
+                    Thread.Sleep(500);
                 }
                 CreateGame();
             }
@@ -60,14 +63,15 @@ namespace AdventureGame
 
         public void DungeonDive()
         {
-            Console.WriteLine("You entered the dungeon!");
+            Console.Clear();
+            Console.WriteLine("\nYou entered the dungeon!");
             while (true)
             {
                 foreach (Room room in Roomlist)
                 {
                     Console.WriteLine($"You are in the {room.Name} ..... {room.Description}\n"); 
                     Console.WriteLine($"You cann see an Item: {room.Item.Name} and a Monster: {room.Monster.Name}");
-                    Console.WriteLine("What do you want to do? (fight, use item, run, exit)");
+                    Console.WriteLine("What do you want to do? (fight [0], use item [1], run [2], exit[3})");
                     Console.WriteLine(room.Monster.ToString());
                     DungeonFight(Game.GameInstance.Characterlist[0] as Player, room.Monster);
                     CloseGame();
@@ -82,7 +86,7 @@ namespace AdventureGame
             while (true)
             {
                 player.attackMagic(monster);
-                Console.WriteLine($"You hurt the monster badly ... current HP:{monster.Health}");
+                Console.WriteLine($"You hurt the monster badly ... current HP:{monster.Health}\n");
                 if (monster.Health <= 0)
                 {
                     Console.WriteLine("The monster lost it's head");
@@ -91,7 +95,7 @@ namespace AdventureGame
                 else
                 {
                     monster.attackPhysical(player);
-                    Console.WriteLine($"The player got attacked by the monster and is bleeding... current HP: {player.Health}");
+                    Console.WriteLine($"The player got attacked by the monster and is bleeding... current HP: {player.Health}\n");
                 }
 
                 if (player.Health <= 0)
@@ -109,8 +113,8 @@ namespace AdventureGame
 
         public void CloseGame()
         {
-            ConsoleKey input = ConsoleKey.Enter;
-            if (input == ConsoleKey.Enter)
+            ConsoleKeyInfo input = Console.ReadKey();
+            if (input.Key == ConsoleKey.Enter)
             {
                 Console.Clear();
                 InitializeGame();
